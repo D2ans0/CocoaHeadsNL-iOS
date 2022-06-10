@@ -20,6 +20,11 @@ jobs:
   Test:
     runs-on: macOS-latest
     steps:
+    - name: Setup Swift
+      uses: swift-actions/setup-swift@v1.15.0
+      with:
+        swift-version: ~5.6
+
     - uses: actions/checkout@v1
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
