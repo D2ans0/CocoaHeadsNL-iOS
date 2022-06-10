@@ -11,7 +11,7 @@
 In case you have any ideas, suggestions or additions, just get in contact so you can see what is happening already. We still got some things on our wishlist.
 
 Our email: [foundation@cocoaheads.nl](mailto:foundation@cocoaheads.nl)
-
+ 
 
 ## Project structure
 
