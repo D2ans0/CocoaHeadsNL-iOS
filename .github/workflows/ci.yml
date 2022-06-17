@@ -51,15 +51,16 @@ jobs:
 #       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
     - name: Run unit tests
       run: |
-        export PROJECT_PATH=$(find ./ -name "*.xcodeproj"); \
-        export PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
-        export SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme"); \
+        DESTINATION=${{ github.event.inputs.message }}
+        PROJECT_PATH=$(find ./ -name "*.xcodeproj"); \
+        PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
+        SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme"); \
         ls -l; echo $PROJECT_NAME; echo $PROJECT_PATH; \
         
         xcodebuild test \
         -scheme $PROJECT_NAME \
         -project $PROJECT_PATH \
-        -destination 'platform=iOS Simulator,name=${{ github.event.inputs.destination }},OS=15.2'\
+        -destination 'platform=iOS Simulator,name=${DESTINATION:-"iPhone 8"},OS=15.2'\
         | xcpretty && exit ${PIPESTATUS[0]}
 
         
