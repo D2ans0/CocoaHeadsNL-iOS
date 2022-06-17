@@ -39,7 +39,7 @@ jobs:
         xcodebuild test \
         -scheme $PROJECT_NAME \
         -project $PROJECT_PATH \
-        -destination 'platform:iOS Simulator, OS:15.2, name:iPhone 12 Pro Max' \
+        -destination 'platform=iOS Simulator, OS=15.2, name=iPhone 12 Pro Max' \
         | xcpretty && exit ${PIPESTATUS[0]}
 
         
