@@ -11,17 +11,17 @@ on:
       - master
 
   workflow_dispatch:
-jobs:
-#   SwiftLint:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v1
-#     - name: GitHub Action for SwiftLint
-#       uses: norio-nomura/action-swiftlint@3.0.1
 
+jobs:
   Test:
     runs-on: macOS-latest
     steps:
+    
+    - name: Setup environment variables
+      run: |
+            export PROJECT_PATH=$(find ./ -name "*.xcodeproj");
+            export PROJECT_NAME=$(basename ${PROJECT_PATH%.*}); \
+            export SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
 
     - uses: actions/checkout@v1
         
@@ -34,8 +34,8 @@ jobs:
         ls -l; \
         xcodebuild test -list; \
         xcodebuild test \
-        -scheme CocoaHeadsNL \
-        -project CocoaHeadsNL/CocoaHeadsNL.xcodeproj \
+        -scheme $SCHEME_PATH \
+        -project PROJECT_PATH \
         -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.5' \
         | xcpretty && exit ${PIPESTATUS[0]}
 
