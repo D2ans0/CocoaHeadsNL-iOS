@@ -37,6 +37,7 @@ jobs:
 #       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
     - name: Run unit tests
       run: |
+        ls -l \
         xcodebuild test -list; \
         xcodebuild test \
         -scheme CocoaHeadsNL \
