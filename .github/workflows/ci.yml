@@ -35,7 +35,7 @@ jobs:
         xcodebuild test -list; \
         xcodebuild test \
         -scheme $SCHEME_PATH \
-        -project PROJECT_PATH \
+        -project $PROJECT_PATH \
         -destination 'platform=iOS Simulator,name=iPhone 11,OS=14.5' \
         | xcpretty && exit ${PIPESTATUS[0]}
 
