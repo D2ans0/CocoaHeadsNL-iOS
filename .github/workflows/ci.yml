@@ -56,10 +56,10 @@ jobs:
         DESTINATION=${DESTINATION:-"iPhone 8"}
         
         # gets project path, name and path to all schemes in the project
-        PROJECT_PATH=$(find ./ -name "*.xcodeproj"); \
-        PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
-        SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme"); \
-        ls -l; echo $PROJECT_NAME; echo $PROJECT_PATH; \
+        PROJECT_PATH=$(find ./ -name "*.xcodeproj")
+        PROJECT_NAME=$(basename "${PROJECT_PATH%.*}")
+        SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
+        ls -l; echo $PROJECT_NAME; echo $PROJECT_PATH
         
         xcodebuild test \
         -scheme $PROJECT_NAME \
