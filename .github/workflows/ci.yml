@@ -51,7 +51,11 @@ jobs:
 #       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
     - name: Run unit tests
       run: |
+        # hacky way to give a default value to an input, blame GitHub, lol
         DESTINATION=${{ github.event.inputs.message }}
+        DESTINATION=${DESTINATION:-"iPhone 8"}
+        
+        # gets project path, name and path to all schemes in the project
         PROJECT_PATH=$(find ./ -name "*.xcodeproj"); \
         PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
         SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme"); \
@@ -60,7 +64,7 @@ jobs:
         xcodebuild test \
         -scheme $PROJECT_NAME \
         -project $PROJECT_PATH \
-        -destination 'platform=iOS Simulator,name=${DESTINATION:-"iPhone 8"},OS=15.2'\
+        -destination "platform=iOS Simulator,name=${DESTINATION},OS=15.2"\
         | xcpretty && exit ${PIPESTATUS[0]}
 
         
