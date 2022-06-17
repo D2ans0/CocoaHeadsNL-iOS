@@ -17,12 +17,11 @@ jobs:
     runs-on: macOS-latest
     steps:
     
-    - name: Setup environment variables
-      run: |
-
-              export PROJECT_PATH=$(find ./ -name "*.xcodeproj");
-            export PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
-        export SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
+#     - name: Setup environment variables
+#       run: |
+#         export PROJECT_PATH=$(find ./ -name "*.xcodeproj");
+#         export PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
+#         export SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
 
     - uses: actions/checkout@v1
         
