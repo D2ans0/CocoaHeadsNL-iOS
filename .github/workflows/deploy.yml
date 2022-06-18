@@ -42,11 +42,11 @@ jobs:
         -project $PROJECT_PATH \
         -configuration Release \
         -scheme $PROJECT_NAME \
-        -derivedDataPath DerivedData \
-        -archivePath DerivedData/Archive/${PROJECT_NAME} archive;
+        -derivedDataPath ./DerivedData \
+        -archivePath ./DerivedData/Archive/${PROJECT_NAME}.xcarchive archive; \
         ls -lR
     - name: Export Archive
-      run: ls -lR; xcodebuild -exportArchive -archivePath DerivedData/Archive/CocoaHeadsNL.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
+      run: ls -lR; xcodebuild -exportArchive -archivePath DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
     - name: Dump file hierarchy
       run: ls -R
 #     - name: Deploy App to Apple
