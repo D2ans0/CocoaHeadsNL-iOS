@@ -28,11 +28,11 @@ jobs:
         SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
         ls -l; echo $PROJECT_NAME; echo $PROJECT_PATH
         
-        xcodebuild test \
-        -scheme $PROJECT_NAME \
-        -project $PROJECT_PATH \
-        -destination "platform=iOS Simulator,name=iPhone 8"\
-        | xcpretty && exit ${PIPESTATUS[0]}
+        #xcodebuild test \
+        #-scheme $PROJECT_NAME \
+        #-project $PROJECT_PATH \
+        #-destination "platform=iOS Simulator,name=iPhone 8"\
+        #| xcpretty && exit ${PIPESTATUS[0]}
 
         xcodebuild \
         -sdk iphoneos \
@@ -42,8 +42,9 @@ jobs:
         -derivedDataPath $(pwd)/DerivedData \
         -archivePath $(pwd)/DerivedData/Archive/${PROJECT_NAME}.xcarchive archive; \
         
-    - name: Export Archive
-      run: pwd; ls -R; xcodebuild -exportArchive -archivePath $(pwd)DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath $(pwd)DerivedData/ipa
+         xcodebuild -exportArchive -archivePath $(pwd)DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath $(pwd)DerivedData/ipa
+#     - name: Export Archive
+#       run: pwd; ls -R; xcodebuild -exportArchive -archivePath $(pwd)DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath $(pwd)DerivedData/ipa
     - name: Dump file hierarchy
       run: ls -R
 #     - name: Deploy App to Apple
