@@ -16,4 +16,4 @@ jobs:
       - run: 'var1="value1"'
       
       - name: step2
-      - run: "echo var1 equals: $var1"
+      - run: "echo var1 equals: $var1" 
