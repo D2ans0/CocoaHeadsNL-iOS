@@ -10,7 +10,7 @@ on:
 
 jobs:
   TestJob:
-    runs-on: macOS-12
+    runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v3
       
