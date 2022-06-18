@@ -13,16 +13,13 @@ jobs:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
-#     - name: Install GPG
-#       run: brew install gnupg
+    
     - name: List available Xcode versions
       run: ls /Applications | grep Xcode
-#     - name: Decrypt large secret
-#       run: ./provisioning/import_provisioning.sh
-#       env:
-#         PROVISIONING_PASSWORD: ${{ secrets.provisioning_password }}
+      
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
+      
     - name: Build archive
       run: |
         # gets project path, name and path to all schemes in the project
@@ -42,12 +39,11 @@ jobs:
         -project $PROJECT_PATH \
         -configuration Release \
         -scheme $PROJECT_NAME \
-        -derivedDataPath ./DerivedData \
-        -archivePath ./DerivedData/Archive/${PROJECT_NAME}.xcarchive archive; \
-        ls -R
+        -derivedDataPath $(pwd)/DerivedData \
+        -archivePath $(pwd)/DerivedData/Archive/${PROJECT_NAME}.xcarchive archive; \
         
     - name: Export Archive
-      run: find / -name "*.xcarchive"; ls -R; xcodebuild -exportArchive -archivePath DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
+      run: pwd; ls -R; xcodebuild -exportArchive -archivePath $(pwd)DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath $(pwd)DerivedData/ipa
     - name: Dump file hierarchy
       run: ls -R
 #     - name: Deploy App to Apple
