@@ -52,20 +52,20 @@ jobs:
     - name: Setup variables
       run: |
         # hacky way to give a default value to an input, blame GitHub, lol
-        echo DESTINATION=${{ github.event.inputs.message }} >> $GITHUB_ENV
-        echo DESTINATION=${DESTINATION:-"iPhone 8"} >> $GITHUB_ENV
+        echo "DESTINATION=${{ github.event.inputs.message }}" >> $GITHUB_ENV
+        echo "DESTINATION=${DESTINATION:-'iPhone 8'}" >> $GITHUB_ENV
         
         # gets project path, name and path to all schemes in the project
-        echo PROJECT_PATH=$(find ./ -name "*.xcodeproj") >> $GITHUB_ENV
-        echo PROJECT_NAME=$(basename "${PROJECT_PATH%.*}") >> $GITHUB_ENV
-        echo SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme") >> $GITHUB_ENV
+        echo "PROJECT_PATH=$(find ./ -name '*.xcodeproj')" >> $GITHUB_ENV
+        echo "PROJECT_NAME=$(basename '${PROJECT_PATH%.*}')" >> $GITHUB_ENV
+        echo "SCHEME_PATH=$(find $PROJECT_PATH -name '$PROJECT_NAME.xcscheme')" >> $GITHUB_ENV
         
     - name: Run unit tests
       run: |
         xcodebuild test \
-        -scheme $PROJECT_NAME \
-        -project $PROJECT_PATH \
-        -destination "platform=iOS Simulator,name=${DESTINATION},OS=14.5"\
+        -scheme ${{ env.PROJECT_NAME }} \
+        -project ${{ env.PROJECT_PATH }} \
+        -destination "platform=iOS Simulator,name=${{ env.DESTINATION }},OS=14.5"\
         | xcpretty && exit ${PIPESTATUS[0]}
 
         
