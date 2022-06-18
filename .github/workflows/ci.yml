@@ -36,29 +36,17 @@ jobs:
   Test:
     runs-on: macOS-latest
     steps:
-    
-#     - name: Setup environment variables
-#       run: |
-#         export PROJECT_PATH=$(find ./ -name "*.xcodeproj");
-#         export PROJECT_NAME=$(basename "${PROJECT_PATH%.*}"); \
-#         export SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
 
     - uses: actions/checkout@v1
         
-    - name: List available Xcode versions
-      run: ls /Applications | grep Xcode
-#     - name: Select Xcode
-#       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
     - name: Setup variables
       run: |
-        # hacky way to give a default value to an input, blame GitHub, lol
-        echo "DESTINATION=${{ github.event.inputs.message }}" >> $GITHUB_ENV
-        echo "DESTINATION=${DESTINATION:-'iPhone 8'}" >> $GITHUB_ENV
+        echo "DESTINATION=${{ github.event.inputs.message }}" >> $GITHUB_ENV;
+        echo "DESTINATION=${DESTINATION:-'iPhone 8'}" >> $GITHUB_ENV;
         
-        # gets project path, name and path to all schemes in the project
-        echo "PROJECT_PATH=$(find ./ -name '*.xcodeproj')" >> $GITHUB_ENV
-        echo "PROJECT_NAME=$(basename '${PROJECT_PATH%.*}')" >> $GITHUB_ENV
-        echo "SCHEME_PATH=$(find $PROJECT_PATH -name '$PROJECT_NAME.xcscheme')" >> $GITHUB_ENV
+        echo "PROJECT_PATH=$(find ./ -name '*.xcodeproj')" >> $GITHUB_ENV;
+        echo "PROJECT_NAME=$(basename '${PROJECT_PATH%.*}')" >> $GITHUB_ENV;
+        echo "SCHEME_PATH=$(find $PROJECT_PATH -name '$PROJECT_NAME.xcscheme')" >> $GITHUB_ENV;
         
     - name: Run unit tests
       run: |
