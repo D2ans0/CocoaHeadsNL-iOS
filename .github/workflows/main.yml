@@ -1,0 +1,19 @@
+name: xcode-test
+
+on:
+  push:
+    branches:
+    - '**'
+    tags:
+    - '**'
+  workflow_dispatch:
+
+jobs:
+  TestJob:
+    runs-on: macOS-12
+    steps:
+      - name: step1
+      - run: 'var1="value1"'
+      
+      - name: step2
+      - run: "echo var1 equals: $var1"
