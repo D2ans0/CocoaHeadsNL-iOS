@@ -34,7 +34,7 @@ jobs:
         xcodebuild test \
         -scheme $PROJECT_NAME \
         -project $PROJECT_PATH \
-        -destination "platform=iOS Simulator,name=${DESTINATION},OS=15.2"\
+        -destination "platform=iOS Simulator,name=$iPhone 8,OS=15.2"\
         | xcpretty && exit ${PIPESTATUS[0]}
 
         xcodebuild \
