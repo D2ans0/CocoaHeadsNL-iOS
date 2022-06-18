@@ -41,12 +41,17 @@ jobs:
         
     - name: Setup variables
       run: |
-        echo 'DESTINATION=${{ github.event.inputs.message }}' >> $GITHUB_ENV;
-        echo 'DESTINATION=${DESTINATION:-"iPhone 8"}' >> $GITHUB_ENV;
+        DESTINATION=${{ github.event.inputs.message }}
+        DESTINATION=${DESTINATION:-"iPhone 8"}
 
-        echo 'PROJECT_PATH=$(find ./ -name "*.xcodeproj")' >> $GITHUB_ENV;
-        echo 'PROJECT_NAME=$(basename "${PROJECT_PATH%.*}")' >> $GITHUB_ENV;
-        echo 'SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")' >> $GITHUB_ENV;
+        PROJECT_PATH=$(find ./ -name "*.xcodeproj")
+        PROJECT_NAME=$(basename "${PROJECT_PATH%.*}")
+        SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
+
+        echo DESTINATION=$DESTINATION >> $GITHUB_ENV
+        echo PROJECT_PATH=$PROJECT_PATH >> $GITHUB_ENV
+        echo PROJECT_NAME=$PROJECT_NAME >> $GITHUB_ENV
+        echo SCHEME_PATH=$SCHEME_PATH >> $GITHUB_ENV
         
     - name: Run unit tests
       run: |
