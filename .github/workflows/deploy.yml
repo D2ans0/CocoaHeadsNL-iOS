@@ -22,7 +22,27 @@ jobs:
     - name: Select Xcode
       run: sudo xcode-select -switch /Applications/Xcode_12.5.app && /usr/bin/xcodebuild -version
     - name: Build archive
-      run: xcodebuild -sdk iphoneos -project CocoaHeadsNL/CocoaHeadsNL.xcodeproj -configuration Release -scheme CocoaHeadsNL -derivedDataPath DerivedData -archivePath DerivedData/Archive/CocoaHeadsNL archive
+      run: |
+        # gets project path, name and path to all schemes in the project
+        PROJECT_PATH=$(find ./ -name "*.xcodeproj")
+        PROJECT_NAME=$(basename "${PROJECT_PATH%.*}")
+        SCHEME_PATH=$(find $PROJECT_PATH -name "$PROJECT_NAME.xcscheme")
+        ls -l; echo $PROJECT_NAME; echo $PROJECT_PATH
+        
+        xcodebuild test \
+        -scheme $PROJECT_NAME \
+        -project $PROJECT_PATH \
+        -destination "platform=iOS Simulator,name=${DESTINATION},OS=15.2"\
+        | xcpretty && exit ${PIPESTATUS[0]}
+
+        xcodebuild \
+        -sdk iphoneos \
+        -project $PROJECT_PATH \
+        -configuration Release \
+        -scheme $PROJECT_NAME \
+        -derivedDataPath DerivedData \
+        -archivePath DerivedData/Archive/${PROJECT_NAME} archive
+        ls -l
     - name: Export Archive
       run: xcodebuild -exportArchive -archivePath DerivedData/Archive/CocoaHeadsNL.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
     - name: Dump file hierarchy
