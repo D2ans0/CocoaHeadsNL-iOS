@@ -43,10 +43,10 @@ jobs:
         -configuration Release \
         -scheme $PROJECT_NAME \
         -derivedDataPath DerivedData \
-        -archivePath DerivedData/Archive/${PROJECT_NAME} archive
-        ls -l
+        -archivePath DerivedData/Archive/${PROJECT_NAME} archive;
+        ls -lR
     - name: Export Archive
-      run: xcodebuild -exportArchive -archivePath DerivedData/Archive/CocoaHeadsNL.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
+      run: ls -lR; xcodebuild -exportArchive -archivePath DerivedData/Archive/CocoaHeadsNL.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
     - name: Dump file hierarchy
       run: ls -R
 #     - name: Deploy App to Apple
