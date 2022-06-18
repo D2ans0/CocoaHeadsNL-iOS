@@ -44,9 +44,10 @@ jobs:
         -scheme $PROJECT_NAME \
         -derivedDataPath ./DerivedData \
         -archivePath ./DerivedData/Archive/${PROJECT_NAME}.xcarchive archive; \
-        ls -lR
+        ls -R
+        
     - name: Export Archive
-      run: ls -lR; xcodebuild -exportArchive -archivePath DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
+      run: find / -name "*.xcarchive"; ls -R; xcodebuild -exportArchive -archivePath DerivedData/Archive/${PROJECT_NAME}.xcarchive -exportOptionsPlist provisioning/App-Store.plist -exportPath DerivedData/ipa
     - name: Dump file hierarchy
       run: ls -R
 #     - name: Deploy App to Apple
