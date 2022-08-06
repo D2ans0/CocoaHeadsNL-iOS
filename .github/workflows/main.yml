@@ -12,6 +12,9 @@ jobs:
   testRunner:
     runs-on: macOS-latest
     timeout-minutes: 1
+    steps:
+    - name: Check runner availabilty
+      run: echo 'Runner available, starting jobs...'
     
     
   TestJob:
