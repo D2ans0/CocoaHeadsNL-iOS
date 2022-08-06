@@ -9,8 +9,14 @@ on:
   workflow_dispatch:
 
 jobs:
+  testRunner:
+    runs-on: macOS-latest
+    timeout-minutes: 1
+    
+    
   TestJob:
     runs-on: macOS-latest
+    needs: testRunner
     steps:
     - name: Set the value
 #       id: step_one
